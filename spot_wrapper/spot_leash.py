@@ -131,6 +131,10 @@ class SpotLeash(SpotLeashProtocol):
     def lease(self) -> Optional[Lease]:
         return self._lease
 
+    @property 
+    def resources(self) -> list[lease_pb2.LeaseResource]: 
+        return list(getattr(self._lease_task, "proto", []) or [])
+
     @property
     def async_tasks(self) -> List[AsyncPeriodicQuery]:
         return [self._lease_task]
